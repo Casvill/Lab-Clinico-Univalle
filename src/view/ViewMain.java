@@ -1,11 +1,10 @@
 package view;
 
+import dao.ILabClinicoDAO;
+import dao.LabClinicoDAOImplementation;
 import java.awt.event.ActionListener;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Daniel Casvill
@@ -15,19 +14,59 @@ public class ViewMain extends javax.swing.JFrame {
     /**
      * Creates new form mainView
      */
+    private ILabClinicoDAO dao = new LabClinicoDAOImplementation();
 
     public ViewMain() {
         initComponents();
         setSize(790,678);
         setTitle("Laboratorio Clínico Univalle");
-                     
+        
+        obtenerMedicos();
+        
+        DefaultListModel<String> listModelExamenes = new DefaultListModel<>();
+        //DefaultListModel<String> listModelNumbers = new DefaultListModel<>();
+        jlExamenes.setModel(listModelExamenes);
+        //jlNumbers.setModel(listModelNumbers);
     }
     
-   public void addBtnjbAñadirExamenListener(ActionListener listenControllers){
-        jbAñadirExamen.addActionListener(listenControllers);}
+    public void obtenerMedicos()
+    {
+        String sql = "SELECT cedula,nombres,apellidos FROM Medico;";
+        String resultSQL = dao.realizarConsulta(sql);
+        System.out.println(resultSQL);
+        String[] medicos = resultSQL.split("-");
+        
+        for(int i = 0; i < medicos.length ;i ++)
+        {
+           jcbMedicoTratante.addItem(medicos[i]);
+        }
+    }
+    
+    public void añadirExamen(String examen)
+    {
+        DefaultListModel<String> model = (DefaultListModel<String>) jlExamenes.getModel();
+        if(!estaElementoEnLista(model, examen))
+        {
+            model.addElement(examen); 
+        }
+        
+    }
+    
+    public boolean estaElementoEnLista(DefaultListModel<String> model, String elemento) 
+    {        
+        for (int i = 0; i < model.getSize(); i++) {
+            if (model.getElementAt(i).equals(elemento)) {
+                return true; // El elemento ya está en la lista
+            }
+        }
+        return false; // El elemento no está en la lista
+    }
+    
+   public void addBtnNuevaOrdenAñadirExamenListener(ActionListener listenControllers){
+        jbNuevaOrdenAñadirExamen.addActionListener(listenControllers);}
 
-   public void addBtnjbEliminarExamen(ActionListener listenControllers){
-        jbEliminarExamen.addActionListener(listenControllers);}
+   public void addBtnNuevaOrdenEliminarExamen(ActionListener listenControllers){
+        jbNuevaOrdenEliminarExamen.addActionListener(listenControllers);}
    
    public void addBtnjbRegistrarPacienteAñadirTelefono(ActionListener listenControllers){
         jbRegistrarPacienteAñadirTelefono.addActionListener(listenControllers);}
@@ -318,8 +357,8 @@ public class ViewMain extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jlExamenes = new javax.swing.JList<>();
-        jbEliminarExamen = new javax.swing.JButton();
-        jbAñadirExamen = new javax.swing.JButton();
+        jbNuevaOrdenEliminarExamen = new javax.swing.JButton();
+        jbNuevaOrdenAñadirExamen = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -354,6 +393,7 @@ public class ViewMain extends javax.swing.JFrame {
         jtfRegistrarPacienteNombreContacto = new javax.swing.JTextField();
         jlTitlePacientes = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jlTitlePacientesListar = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -463,14 +503,14 @@ public class ViewMain extends javax.swing.JFrame {
 
         jtfFechaDeSolicitud.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jpNuevaOrden.add(jtfFechaDeSolicitud);
-        jtfFechaDeSolicitud.setBounds(240, 280, 280, 22);
+        jtfFechaDeSolicitud.setBounds(240, 280, 280, 26);
 
         jLabel1.setText("Fecha de Solicitud:");
         jpNuevaOrden.add(jLabel1);
         jLabel1.setBounds(110, 280, 120, 16);
 
         jpNuevaOrden.add(jcbMedicoTratante);
-        jcbMedicoTratante.setBounds(240, 330, 280, 22);
+        jcbMedicoTratante.setBounds(240, 330, 280, 26);
 
         jLabel2.setText("Médico Tratante:");
         jpNuevaOrden.add(jLabel2);
@@ -485,13 +525,13 @@ public class ViewMain extends javax.swing.JFrame {
         jpNuevaOrden.add(jScrollPane1);
         jScrollPane1.setBounds(240, 390, 280, 121);
 
-        jbEliminarExamen.setText("Eliminar Exámen");
-        jpNuevaOrden.add(jbEliminarExamen);
-        jbEliminarExamen.setBounds(530, 430, 137, 23);
+        jbNuevaOrdenEliminarExamen.setText("Eliminar Exámen");
+        jpNuevaOrden.add(jbNuevaOrdenEliminarExamen);
+        jbNuevaOrdenEliminarExamen.setBounds(530, 430, 137, 27);
 
-        jbAñadirExamen.setText("Añadir Exámen");
-        jpNuevaOrden.add(jbAñadirExamen);
-        jbAñadirExamen.setBounds(530, 390, 137, 23);
+        jbNuevaOrdenAñadirExamen.setText("Añadir Exámen");
+        jpNuevaOrden.add(jbNuevaOrdenAñadirExamen);
+        jbNuevaOrdenAñadirExamen.setBounds(530, 390, 137, 27);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("NÚMERO DE ORDEN:");
@@ -514,7 +554,7 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
         jpNuevaOrden.add(jtfNuevaOrdenFechaDeIngreso);
-        jtfNuevaOrdenFechaDeIngreso.setBounds(240, 230, 280, 22);
+        jtfNuevaOrdenFechaDeIngreso.setBounds(240, 230, 280, 26);
 
         jtPOrden.addTab("NUEVA ORDEN", jpNuevaOrden);
 
@@ -557,79 +597,83 @@ public class ViewMain extends javax.swing.JFrame {
 
         jLabel7.setText("Nombres:");
         jpRegistrarPaciente.add(jLabel7);
-        jLabel7.setBounds(110, 150, 70, 16);
+        jLabel7.setBounds(110, 140, 70, 16);
         jpRegistrarPaciente.add(jtfRegistrarPacienteNombres);
-        jtfRegistrarPacienteNombres.setBounds(260, 140, 260, 22);
+        jtfRegistrarPacienteNombres.setBounds(260, 130, 260, 26);
 
         jLabel6.setText("Cédula:");
         jpRegistrarPaciente.add(jLabel6);
-        jLabel6.setBounds(110, 110, 70, 16);
+        jLabel6.setBounds(110, 100, 70, 16);
         jpRegistrarPaciente.add(jtfRegistrarPacienteCedula);
-        jtfRegistrarPacienteCedula.setBounds(260, 100, 260, 22);
+        jtfRegistrarPacienteCedula.setBounds(260, 90, 260, 26);
 
         jLabel8.setText("Apellidos:");
         jpRegistrarPaciente.add(jLabel8);
-        jLabel8.setBounds(110, 190, 100, 16);
+        jLabel8.setBounds(110, 180, 100, 16);
 
         jLabel9.setText("Fecha de Nacimiento:");
         jpRegistrarPaciente.add(jLabel9);
-        jLabel9.setBounds(110, 230, 140, 16);
+        jLabel9.setBounds(110, 220, 140, 16);
         jpRegistrarPaciente.add(jtfRegistrarPacienteFechaDeNacimiento);
-        jtfRegistrarPacienteFechaDeNacimiento.setBounds(260, 220, 260, 22);
+        jtfRegistrarPacienteFechaDeNacimiento.setBounds(260, 210, 260, 26);
         jpRegistrarPaciente.add(jtfRegistrarPacienteApellidos);
-        jtfRegistrarPacienteApellidos.setBounds(260, 180, 260, 22);
+        jtfRegistrarPacienteApellidos.setBounds(260, 170, 260, 26);
 
         jLabel10.setText("POS:");
         jpRegistrarPaciente.add(jLabel10);
-        jLabel10.setBounds(110, 270, 110, 16);
+        jLabel10.setBounds(110, 260, 110, 16);
         jpRegistrarPaciente.add(jtfRegistrarPacientePOS);
-        jtfRegistrarPacientePOS.setBounds(260, 260, 260, 22);
+        jtfRegistrarPacientePOS.setBounds(260, 250, 260, 26);
 
         jLabel11.setText("E-Mail:");
         jpRegistrarPaciente.add(jLabel11);
-        jLabel11.setBounds(110, 310, 43, 16);
+        jLabel11.setBounds(110, 300, 43, 16);
 
         jLabel12.setText("Teléfonos:");
         jpRegistrarPaciente.add(jLabel12);
-        jLabel12.setBounds(110, 350, 120, 16);
+        jLabel12.setBounds(110, 340, 120, 16);
         jpRegistrarPaciente.add(jtfRegistrarPacienteEmail);
-        jtfRegistrarPacienteEmail.setBounds(260, 300, 260, 22);
+        jtfRegistrarPacienteEmail.setBounds(260, 290, 260, 26);
 
         jScrollPane2.setViewportView(jlRegistrarPacienteTelefonos);
 
         jpRegistrarPaciente.add(jScrollPane2);
-        jScrollPane2.setBounds(260, 340, 258, 60);
+        jScrollPane2.setBounds(260, 330, 262, 60);
 
         jbRegistrarPacienteEliminarTelefono.setText("ELIMINAR");
         jpRegistrarPaciente.add(jbRegistrarPacienteEliminarTelefono);
-        jbRegistrarPacienteEliminarTelefono.setBounds(530, 370, 140, 23);
+        jbRegistrarPacienteEliminarTelefono.setBounds(530, 360, 140, 27);
 
         jbRegistrarPacienteAñadirTelefono.setText("AÑADIR");
         jpRegistrarPaciente.add(jbRegistrarPacienteAñadirTelefono);
-        jbRegistrarPacienteAñadirTelefono.setBounds(530, 340, 140, 23);
+        jbRegistrarPacienteAñadirTelefono.setBounds(530, 330, 140, 27);
 
         jLabel13.setText("Contacto en caso de emergencia:");
         jpRegistrarPaciente.add(jLabel13);
-        jLabel13.setBounds(110, 430, 290, 16);
+        jLabel13.setBounds(110, 420, 290, 16);
 
         jLabel14.setText("Nombre:");
         jpRegistrarPaciente.add(jLabel14);
-        jLabel14.setBounds(110, 470, 100, 16);
+        jLabel14.setBounds(110, 460, 100, 16);
 
         jLabel15.setText("Teléfono:");
         jpRegistrarPaciente.add(jLabel15);
-        jLabel15.setBounds(110, 510, 80, 16);
+        jLabel15.setBounds(110, 500, 80, 16);
         jpRegistrarPaciente.add(jtfRegistrarPacienteTelefonoContacto);
-        jtfRegistrarPacienteTelefonoContacto.setBounds(260, 500, 260, 22);
+        jtfRegistrarPacienteTelefonoContacto.setBounds(260, 490, 260, 26);
         jpRegistrarPaciente.add(jtfRegistrarPacienteNombreContacto);
-        jtfRegistrarPacienteNombreContacto.setBounds(260, 460, 260, 22);
+        jtfRegistrarPacienteNombreContacto.setBounds(260, 450, 260, 26);
 
         jlTitlePacientes.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
         jlTitlePacientes.setText("  LABORATORIO CLÍNICO UNIVALLE");
         jpRegistrarPaciente.add(jlTitlePacientes);
-        jlTitlePacientes.setBounds(90, 10, 600, 100);
+        jlTitlePacientes.setBounds(90, 0, 600, 100);
         jpRegistrarPaciente.add(jSeparator1);
-        jSeparator1.setBounds(100, 420, 570, 10);
+        jSeparator1.setBounds(100, 410, 570, 10);
+
+        jButton1.setText("REGISTRAR PACIENTE");
+        jpRegistrarPaciente.add(jButton1);
+        jButton1.setBounds(290, 540, 190, 27);
 
         jtPaciente.addTab("REGISTRAR PACIENTE", jpRegistrarPaciente);
 
@@ -677,11 +721,11 @@ public class ViewMain extends javax.swing.JFrame {
         jpEliminarPaciente.add(jLabel39);
         jLabel39.setBounds(110, 130, 100, 16);
         jpEliminarPaciente.add(jtfEliminarPacienteCedula);
-        jtfEliminarPacienteCedula.setBounds(190, 130, 340, 22);
+        jtfEliminarPacienteCedula.setBounds(190, 130, 340, 26);
 
         jbEliminarPacienteBuscar.setText("BUSCAR");
         jpEliminarPaciente.add(jbEliminarPacienteBuscar);
-        jbEliminarPacienteBuscar.setBounds(550, 130, 120, 23);
+        jbEliminarPacienteBuscar.setBounds(550, 130, 120, 27);
 
         jtEliminarPacientePaciente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -706,7 +750,7 @@ public class ViewMain extends javax.swing.JFrame {
 
         jbEliminarContactoEliminar.setText("ELIMINAR");
         jpEliminarPaciente.add(jbEliminarContactoEliminar);
-        jbEliminarContactoEliminar.setBounds(320, 350, 130, 23);
+        jbEliminarContactoEliminar.setBounds(320, 350, 130, 27);
 
         jtPaciente.addTab("ELIMINAR PACIENTE", jpEliminarPaciente);
 
@@ -717,7 +761,7 @@ public class ViewMain extends javax.swing.JFrame {
         jpActualizarPaciente.add(jlTitlePacientes1);
         jlTitlePacientes1.setBounds(90, 10, 600, 80);
         jpActualizarPaciente.add(jtfActualizarPacienteCedula);
-        jtfActualizarPacienteCedula.setBounds(260, 90, 260, 22);
+        jtfActualizarPacienteCedula.setBounds(260, 90, 260, 26);
 
         jLabel23.setText("Cédula:");
         jpActualizarPaciente.add(jLabel23);
@@ -727,9 +771,9 @@ public class ViewMain extends javax.swing.JFrame {
         jpActualizarPaciente.add(jLabel24);
         jLabel24.setBounds(110, 140, 70, 16);
         jpActualizarPaciente.add(jtfActualizarPacienteNombres);
-        jtfActualizarPacienteNombres.setBounds(260, 130, 260, 22);
+        jtfActualizarPacienteNombres.setBounds(260, 130, 260, 26);
         jpActualizarPaciente.add(jtfActualizarPacienteApellidos);
-        jtfActualizarPacienteApellidos.setBounds(260, 170, 260, 22);
+        jtfActualizarPacienteApellidos.setBounds(260, 170, 260, 26);
 
         jLabel25.setText("Apellidos:");
         jpActualizarPaciente.add(jLabel25);
@@ -739,9 +783,9 @@ public class ViewMain extends javax.swing.JFrame {
         jpActualizarPaciente.add(jLabel26);
         jLabel26.setBounds(110, 220, 140, 16);
         jpActualizarPaciente.add(jtfActualizarPacienteFechaDeNacimiento);
-        jtfActualizarPacienteFechaDeNacimiento.setBounds(260, 210, 260, 22);
+        jtfActualizarPacienteFechaDeNacimiento.setBounds(260, 210, 260, 26);
         jpActualizarPaciente.add(jtfActualizarPacientePOS);
-        jtfActualizarPacientePOS.setBounds(260, 250, 260, 22);
+        jtfActualizarPacientePOS.setBounds(260, 250, 260, 26);
 
         jLabel27.setText("POS:");
         jpActualizarPaciente.add(jLabel27);
@@ -751,12 +795,12 @@ public class ViewMain extends javax.swing.JFrame {
         jpActualizarPaciente.add(jLabel28);
         jLabel28.setBounds(110, 300, 43, 16);
         jpActualizarPaciente.add(jtfActualizarPacienteEmail);
-        jtfActualizarPacienteEmail.setBounds(260, 290, 260, 22);
+        jtfActualizarPacienteEmail.setBounds(260, 290, 260, 26);
 
         jScrollPane7.setViewportView(jlActualizarPacienteTelefonos);
 
         jpActualizarPaciente.add(jScrollPane7);
-        jScrollPane7.setBounds(260, 330, 258, 60);
+        jScrollPane7.setBounds(260, 330, 262, 60);
 
         jLabel29.setText("Teléfonos:");
         jpActualizarPaciente.add(jLabel29);
@@ -764,13 +808,13 @@ public class ViewMain extends javax.swing.JFrame {
 
         jbActualizarPacienteAñadirTelefono.setText("AÑADIR");
         jpActualizarPaciente.add(jbActualizarPacienteAñadirTelefono);
-        jbActualizarPacienteAñadirTelefono.setBounds(530, 330, 140, 23);
+        jbActualizarPacienteAñadirTelefono.setBounds(530, 330, 140, 27);
 
         jbActualizarPacienteEliminarTelefono.setText("ELIMINAR");
         jpActualizarPaciente.add(jbActualizarPacienteEliminarTelefono);
-        jbActualizarPacienteEliminarTelefono.setBounds(530, 360, 140, 23);
+        jbActualizarPacienteEliminarTelefono.setBounds(530, 360, 140, 27);
         jpActualizarPaciente.add(jtfActualizarPacienteNombreContacto);
-        jtfActualizarPacienteNombreContacto.setBounds(260, 450, 260, 22);
+        jtfActualizarPacienteNombreContacto.setBounds(260, 450, 260, 26);
 
         jLabel30.setText("Contacto en caso de emergencia:");
         jpActualizarPaciente.add(jLabel30);
@@ -778,7 +822,7 @@ public class ViewMain extends javax.swing.JFrame {
         jpActualizarPaciente.add(jSeparator2);
         jSeparator2.setBounds(100, 410, 570, 10);
         jpActualizarPaciente.add(jtfActualizarPacienteTelefonoContacto);
-        jtfActualizarPacienteTelefonoContacto.setBounds(260, 490, 260, 22);
+        jtfActualizarPacienteTelefonoContacto.setBounds(260, 490, 260, 26);
 
         jLabel31.setText("Nombre:");
         jpActualizarPaciente.add(jLabel31);
@@ -790,11 +834,11 @@ public class ViewMain extends javax.swing.JFrame {
 
         jtfActualizarPacienteBuscar.setText("BUSCAR");
         jpActualizarPaciente.add(jtfActualizarPacienteBuscar);
-        jtfActualizarPacienteBuscar.setBounds(530, 90, 140, 23);
+        jtfActualizarPacienteBuscar.setBounds(530, 90, 140, 27);
 
         jbActualizarPacienteActualizar.setText("ACTUALIZAR");
         jpActualizarPaciente.add(jbActualizarPacienteActualizar);
-        jbActualizarPacienteActualizar.setBounds(310, 540, 180, 23);
+        jbActualizarPacienteActualizar.setBounds(310, 540, 180, 27);
 
         jtPaciente.addTab("ACTUALIZAR PACIENTE", jpActualizarPaciente);
 
@@ -831,18 +875,18 @@ public class ViewMain extends javax.swing.JFrame {
         jpRegistrarMedico.add(jLabel21);
         jLabel21.setBounds(120, 465, 80, 16);
         jpRegistrarMedico.add(jtfRegistrarMedicoCedula);
-        jtfRegistrarMedicoCedula.setBounds(210, 140, 330, 22);
+        jtfRegistrarMedicoCedula.setBounds(210, 140, 330, 26);
         jpRegistrarMedico.add(jtfRegistrarMedicoNombres);
-        jtfRegistrarMedicoNombres.setBounds(210, 190, 330, 22);
+        jtfRegistrarMedicoNombres.setBounds(210, 190, 330, 26);
         jpRegistrarMedico.add(jtfRegistrarMedicoApellidos);
-        jtfRegistrarMedicoApellidos.setBounds(210, 240, 330, 22);
+        jtfRegistrarMedicoApellidos.setBounds(210, 240, 330, 26);
 
         jScrollPane3.setViewportView(jlRegistrarMedicoTelefonos);
 
         jpRegistrarMedico.add(jScrollPane3);
         jScrollPane3.setBounds(210, 290, 330, 100);
         jpRegistrarMedico.add(jtfRegistrarMedicoDireccion);
-        jtfRegistrarMedicoDireccion.setBounds(210, 410, 330, 22);
+        jtfRegistrarMedicoDireccion.setBounds(210, 410, 330, 26);
 
         jbRegistrarMedicoEliminarTelefono.setText("ELIMINAR");
         jpRegistrarMedico.add(jbRegistrarMedicoEliminarTelefono);
@@ -853,7 +897,7 @@ public class ViewMain extends javax.swing.JFrame {
         jbRegistrarMedicoAñadirTelefono.setBounds(550, 300, 130, 30);
 
         jpRegistrarMedico.add(jcbRegistrarMedicoEspecialidad);
-        jcbRegistrarMedicoEspecialidad.setBounds(210, 460, 330, 22);
+        jcbRegistrarMedicoEspecialidad.setBounds(210, 460, 330, 26);
 
         jlTitleMedicos.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
         jlTitleMedicos.setText("  LABORATORIO CLÍNICO UNIVALLE");
@@ -902,25 +946,25 @@ public class ViewMain extends javax.swing.JFrame {
         jpActualizarMedico.add(jlTitleMedicos2);
         jlTitleMedicos2.setBounds(90, 20, 600, 100);
         jpActualizarMedico.add(jtfActualizarMedicoCedula);
-        jtfActualizarMedicoCedula.setBounds(210, 120, 330, 22);
+        jtfActualizarMedicoCedula.setBounds(210, 120, 330, 26);
 
         jLabel33.setText("Cédula:");
         jpActualizarMedico.add(jLabel33);
         jLabel33.setBounds(120, 130, 90, 16);
         jpActualizarMedico.add(jtfActualizarMedicoNombres);
-        jtfActualizarMedicoNombres.setBounds(210, 170, 330, 22);
+        jtfActualizarMedicoNombres.setBounds(210, 170, 330, 26);
 
         jScrollPane8.setViewportView(jlActualizarMedicoTelefonos);
 
         jpActualizarMedico.add(jScrollPane8);
         jScrollPane8.setBounds(210, 270, 330, 100);
         jpActualizarMedico.add(jtfActualizarMedicoApellidos);
-        jtfActualizarMedicoApellidos.setBounds(210, 220, 330, 22);
+        jtfActualizarMedicoApellidos.setBounds(210, 220, 330, 26);
         jpActualizarMedico.add(jtfActualizarMedicoDireccion);
-        jtfActualizarMedicoDireccion.setBounds(210, 390, 330, 22);
+        jtfActualizarMedicoDireccion.setBounds(210, 390, 330, 26);
 
         jpActualizarMedico.add(jcbActualizarMedicoEspecialidad);
-        jcbActualizarMedicoEspecialidad.setBounds(210, 440, 330, 22);
+        jcbActualizarMedicoEspecialidad.setBounds(210, 440, 330, 26);
 
         jbActualizarMedicoEliminar.setText("ELIMINAR");
         jpActualizarMedico.add(jbActualizarMedicoEliminar);
@@ -952,21 +996,21 @@ public class ViewMain extends javax.swing.JFrame {
 
         jbActualizarMedicoBuscar.setText("BUSCAR");
         jpActualizarMedico.add(jbActualizarMedicoBuscar);
-        jbActualizarMedicoBuscar.setBounds(550, 120, 120, 23);
+        jbActualizarMedicoBuscar.setBounds(550, 120, 120, 27);
 
         jbActualizarMedicoActualizar.setText("ACTUALIZAR");
         jpActualizarMedico.add(jbActualizarMedicoActualizar);
-        jbActualizarMedicoActualizar.setBounds(300, 510, 150, 23);
+        jbActualizarMedicoActualizar.setBounds(300, 510, 150, 27);
 
         jtMedico.addTab("ACTUALIZAR MEDICO", jpActualizarMedico);
 
         jpEliminarMedico.setLayout(null);
         jpEliminarMedico.add(jtfEliminarMedicoCedula);
-        jtfEliminarMedicoCedula.setBounds(190, 130, 340, 22);
+        jtfEliminarMedicoCedula.setBounds(190, 130, 340, 26);
 
         jbEliminarMedicoBuscar.setText("BUSCAR");
         jpEliminarMedico.add(jbEliminarMedicoBuscar);
-        jbEliminarMedicoBuscar.setBounds(550, 130, 120, 23);
+        jbEliminarMedicoBuscar.setBounds(550, 130, 120, 27);
 
         jlTitlePacientes3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
         jlTitlePacientes3.setText("  LABORATORIO CLÍNICO UNIVALLE");
@@ -979,7 +1023,7 @@ public class ViewMain extends javax.swing.JFrame {
 
         jbEliminarMedicoEliminar.setText("ELIMINAR");
         jpEliminarMedico.add(jbEliminarMedicoEliminar);
-        jbEliminarMedicoEliminar.setBounds(320, 360, 130, 23);
+        jbEliminarMedicoEliminar.setBounds(320, 360, 130, 27);
 
         jtEliminarMedicoMedico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1023,6 +1067,7 @@ public class ViewMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfNuevaOrdenFechaDeIngresoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1085,12 +1130,12 @@ public class ViewMain extends javax.swing.JFrame {
     private javax.swing.JButton jbActualizarPacienteActualizar;
     private javax.swing.JButton jbActualizarPacienteAñadirTelefono;
     private javax.swing.JButton jbActualizarPacienteEliminarTelefono;
-    private javax.swing.JButton jbAñadirExamen;
     private javax.swing.JButton jbEliminarContactoEliminar;
-    private javax.swing.JButton jbEliminarExamen;
     private javax.swing.JButton jbEliminarMedicoBuscar;
     private javax.swing.JButton jbEliminarMedicoEliminar;
     private javax.swing.JButton jbEliminarPacienteBuscar;
+    private javax.swing.JButton jbNuevaOrdenAñadirExamen;
+    private javax.swing.JButton jbNuevaOrdenEliminarExamen;
     private javax.swing.JButton jbRegistrarMedicoAñadirTelefono;
     private javax.swing.JButton jbRegistrarMedicoEliminarTelefono;
     private javax.swing.JButton jbRegistrarPacienteAñadirTelefono;

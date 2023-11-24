@@ -50,7 +50,7 @@ public class LabClinicoDAOImplementation implements ILabClinicoDAO
                         // Procesar y mostrar todos los resultados
                 for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) 
                 {
-                    resultado += resultSet.getString(i) + "\t";
+                    resultado += resultSet.getString(i)+" ";
                 }
                 resultado += "-";
                 

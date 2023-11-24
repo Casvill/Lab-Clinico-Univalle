@@ -1,5 +1,6 @@
 package labClinico;
 
+import controller.ControladorOrden;
 import view.ViewMain;
 
 /**
@@ -12,8 +13,7 @@ public class LabClinico
     {
         // TODO code application logic here
         ViewMain main = new ViewMain();
-        main.setVisible(true);
-        main.setLocationRelativeTo(null);
+        ControladorOrden controladorOrden = new ControladorOrden(main);        
     }
     
 }
