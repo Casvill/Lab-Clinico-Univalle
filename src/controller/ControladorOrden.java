@@ -36,6 +36,9 @@ public class ControladorOrden
         @Override
         public void actionPerformed(ActionEvent e) 
         {
+            
+            //------------------------------------------------------------------------------------------------------
+            
             if(e.getActionCommand().equalsIgnoreCase("Añadir Exámen"))
             {
                 String sql = "SELECT tipo_examen FROM ValorExamen;";
@@ -68,6 +71,13 @@ public class ControladorOrden
                         view.añadirExamen(selectedOption);
                     }                                                                  
                 }
+            }
+            
+            //------------------------------------------------------------------------------------------------------
+            
+            if(e.getActionCommand().equalsIgnoreCase("REGISTRAR PACIENTE"))
+            {
+                
             }
             
         }

@@ -393,7 +393,7 @@ public class ViewMain extends javax.swing.JFrame {
         jtfRegistrarPacienteNombreContacto = new javax.swing.JTextField();
         jlTitlePacientes = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        jbRegistrarPaciente = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jlTitlePacientesListar = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -671,9 +671,9 @@ public class ViewMain extends javax.swing.JFrame {
         jpRegistrarPaciente.add(jSeparator1);
         jSeparator1.setBounds(100, 410, 570, 10);
 
-        jButton1.setText("REGISTRAR PACIENTE");
-        jpRegistrarPaciente.add(jButton1);
-        jButton1.setBounds(290, 540, 190, 27);
+        jbRegistrarPaciente.setText("REGISTRAR PACIENTE");
+        jpRegistrarPaciente.add(jbRegistrarPaciente);
+        jbRegistrarPaciente.setBounds(290, 540, 190, 27);
 
         jtPaciente.addTab("REGISTRAR PACIENTE", jpRegistrarPaciente);
 
@@ -1067,7 +1067,6 @@ public class ViewMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfNuevaOrdenFechaDeIngresoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1138,6 +1137,7 @@ public class ViewMain extends javax.swing.JFrame {
     private javax.swing.JButton jbNuevaOrdenEliminarExamen;
     private javax.swing.JButton jbRegistrarMedicoAñadirTelefono;
     private javax.swing.JButton jbRegistrarMedicoEliminarTelefono;
+    private javax.swing.JButton jbRegistrarPaciente;
     private javax.swing.JButton jbRegistrarPacienteAñadirTelefono;
     private javax.swing.JButton jbRegistrarPacienteEliminarTelefono;
     private javax.swing.JComboBox<String> jcbActualizarMedicoEspecialidad;
