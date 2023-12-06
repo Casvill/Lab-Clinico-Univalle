@@ -3,8 +3,11 @@ package view;
 import dao.ILabClinicoDAO;
 import dao.LabClinicoDAOImplementation;
 import java.awt.event.ActionListener;
+<<<<<<< HEAD
 import javax.swing.DefaultListModel;
 
+=======
+>>>>>>> 40810b89e26d784183bf746c3af2ec35889d48c0
 /**
  *
  * @author Daniel Casvill
@@ -29,6 +32,7 @@ public class ViewMain extends javax.swing.JFrame {
         //jlNumbers.setModel(listModelNumbers);
     }
     
+<<<<<<< HEAD
     public void obtenerMedicos()
     {
         String sql = "SELECT cedula,nombres,apellidos FROM Medico;";
@@ -67,47 +71,54 @@ public class ViewMain extends javax.swing.JFrame {
 
    public void addBtnNuevaOrdenEliminarExamen(ActionListener listenControllers){
         jbNuevaOrdenEliminarExamen.addActionListener(listenControllers);}
+=======
+   public void addBtnAñadirExamenListener(ActionListener listenControllers){
+        jbAñadirExamen.addActionListener(listenControllers);}
+
+   public void addBtnEliminarExamen(ActionListener listenControllers){
+        jbEliminarExamen.addActionListener(listenControllers);}
+>>>>>>> 40810b89e26d784183bf746c3af2ec35889d48c0
    
-   public void addBtnjbRegistrarPacienteAñadirTelefono(ActionListener listenControllers){
+   public void addBtnRegistrarPacienteAñadirTelefono(ActionListener listenControllers){
         jbRegistrarPacienteAñadirTelefono.addActionListener(listenControllers);}
     
-   public void addBtnjbRegistrarPacienteEliminarTelefono(ActionListener listenControllers){
+   public void addBtnRegistrarPacienteEliminarTelefono(ActionListener listenControllers){
         jbRegistrarPacienteEliminarTelefono.addActionListener(listenControllers);}
    
-   public void addBtnjtfActualizarPacienteBuscar(ActionListener listenControllers){
-        jtfActualizarPacienteBuscar.addActionListener(listenControllers);}
+   public void addBtnActualizarPacienteBuscar(ActionListener listenControllers){
+        jbActualizarPacienteBuscar.addActionListener(listenControllers);}
    
-   public void addBtnjbActualizarPacienteAñadirTelefono(ActionListener listenControllers){
+   public void addBtnActualizarPacienteAñadirTelefono(ActionListener listenControllers){
         jbActualizarPacienteAñadirTelefono.addActionListener(listenControllers);}
    
-   public void addBtnjbActualizarPacienteEliminarTelefono(ActionListener listenControllers){
+   public void addBtnActualizarPacienteEliminarTelefono(ActionListener listenControllers){
         jbActualizarPacienteEliminarTelefono.addActionListener(listenControllers);}
    
-   public void addBtnjbActualizarPacienteActualizar(ActionListener listenControllers){
+   public void addBtnActualizarPacienteActualizar(ActionListener listenControllers){
         jbActualizarPacienteActualizar.addActionListener(listenControllers);}
    
-   public void addBtnjbRegistrarMedicoAñadirTelefono(ActionListener listenControllers){
+   public void addBtnRegistrarMedicoAñadirTelefono(ActionListener listenControllers){
         jbRegistrarMedicoAñadirTelefono.addActionListener(listenControllers);}
    
-   public void addBtnjbRegistrarMedicoEliminarTelefono(ActionListener listenControllers){
+   public void addBtnRegistrarMedicoEliminarTelefono(ActionListener listenControllers){
         jbRegistrarMedicoEliminarTelefono.addActionListener(listenControllers);}
    
-   public void addBtnjbActualizarMedicoBuscar(ActionListener listenControllers){
+   public void addBtnActualizarMedicoBuscar(ActionListener listenControllers){
         jbActualizarMedicoBuscar.addActionListener(listenControllers);}
    
-   public void addBtnjbActualizarMedicoAñadirTelefono(ActionListener listenControllers){
+   public void addBtnActualizarMedicoAñadirTelefono(ActionListener listenControllers){
         jbActualizarMedicoAñadirTelefono.addActionListener(listenControllers);}
      
-   public void addBtnjbActualizarMedicoEliminar(ActionListener listenControllers){
+   public void addBtnActualizarMedicoEliminar(ActionListener listenControllers){
         jbActualizarMedicoEliminar.addActionListener(listenControllers);}
    
-   public void addBtnjbActualizarMedicoActualizar(ActionListener listenControllers){
+   public void addBtnActualizarMedicoActualizar(ActionListener listenControllers){
         jbActualizarMedicoActualizar.addActionListener(listenControllers);}
  
-   public void addBtnjbEliminarMedicoBuscar(ActionListener listenControllers){
+   public void addBtnEliminarMedicoBuscar(ActionListener listenControllers){
         jbEliminarMedicoBuscar.addActionListener(listenControllers);}
    
-   public void addBtnjbEliminarMedicoEliminar(ActionListener listenControllers){
+   public void addBtnEliminarMedicoEliminar(ActionListener listenControllers){
         jbEliminarMedicoEliminar.addActionListener(listenControllers);}
  
    public String getJtfActualizarMedicoApellidos() {
@@ -431,7 +442,7 @@ public class ViewMain extends javax.swing.JFrame {
         jtfActualizarPacienteTelefonoContacto = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        jtfActualizarPacienteBuscar = new javax.swing.JButton();
+        jbActualizarPacienteBuscar = new javax.swing.JButton();
         jbActualizarPacienteActualizar = new javax.swing.JButton();
         jpMedicos = new javax.swing.JPanel();
         jtMedico = new javax.swing.JTabbedPane();
@@ -486,7 +497,6 @@ public class ViewMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(777, 637));
-        setPreferredSize(new java.awt.Dimension(777, 637));
         getContentPane().setLayout(null);
 
         jPanel1.setMinimumSize(new java.awt.Dimension(777, 637));
@@ -832,9 +842,15 @@ public class ViewMain extends javax.swing.JFrame {
         jpActualizarPaciente.add(jLabel32);
         jLabel32.setBounds(110, 500, 80, 16);
 
+<<<<<<< HEAD
         jtfActualizarPacienteBuscar.setText("BUSCAR");
         jpActualizarPaciente.add(jtfActualizarPacienteBuscar);
         jtfActualizarPacienteBuscar.setBounds(530, 90, 140, 27);
+=======
+        jbActualizarPacienteBuscar.setText("BUSCAR");
+        jpActualizarPaciente.add(jbActualizarPacienteBuscar);
+        jbActualizarPacienteBuscar.setBounds(530, 90, 140, 23);
+>>>>>>> 40810b89e26d784183bf746c3af2ec35889d48c0
 
         jbActualizarPacienteActualizar.setText("ACTUALIZAR");
         jpActualizarPaciente.add(jbActualizarPacienteActualizar);
@@ -1128,6 +1144,7 @@ public class ViewMain extends javax.swing.JFrame {
     private javax.swing.JButton jbActualizarMedicoEliminar;
     private javax.swing.JButton jbActualizarPacienteActualizar;
     private javax.swing.JButton jbActualizarPacienteAñadirTelefono;
+    private javax.swing.JButton jbActualizarPacienteBuscar;
     private javax.swing.JButton jbActualizarPacienteEliminarTelefono;
     private javax.swing.JButton jbEliminarContactoEliminar;
     private javax.swing.JButton jbEliminarMedicoBuscar;
@@ -1182,7 +1199,6 @@ public class ViewMain extends javax.swing.JFrame {
     private javax.swing.JTextField jtfActualizarMedicoDireccion;
     private javax.swing.JTextField jtfActualizarMedicoNombres;
     private javax.swing.JTextField jtfActualizarPacienteApellidos;
-    private javax.swing.JButton jtfActualizarPacienteBuscar;
     private javax.swing.JTextField jtfActualizarPacienteCedula;
     private javax.swing.JTextField jtfActualizarPacienteEmail;
     private javax.swing.JTextField jtfActualizarPacienteFechaDeNacimiento;
